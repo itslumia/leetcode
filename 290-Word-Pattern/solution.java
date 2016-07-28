@@ -7,7 +7,7 @@ public class Solution {
             char key = pattern.charAt(i);
             String value = s[i];
             if (map.containsKey(key)) {
-                if (!Objects.equals(map.get(key),value)) return false;
+                if (!map.get(key).equals(value)) return false;
             } else if  (map.containsValue(value)) return false;
             else map.put(key, value);
         }
