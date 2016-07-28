@@ -7,8 +7,7 @@ public class Solution {
         int area1 = (C-A)*(D-B);
         int area2 = (G-E)*(H-F);
         int inter = 0;
-        if (left > right || top < bottom) inter = 0;
-        else inter = (right - left) * (top - bottom);
+        if (left < right && top > bottom) inter = (right - left) * (top - bottom);
         return area1+area2-inter;
     }
 }
