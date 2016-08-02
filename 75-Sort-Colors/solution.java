@@ -2,9 +2,16 @@ public class Solution {
     public void sortColors(int[] nums) {
         int s = 0;
         int e = nums.length-1;
-        for (int i=0; i<=e; i++) {
-            while (nums[i] == 2 && i < e) swap(nums, i, e--);
-            while (nums[i] == 0 && i > s) swap(nums, i, s++);
+        int i = 0;
+        while (i<=e) {
+            if (nums[i] == 0) {
+                swap(nums, i, s);
+                s++;
+                i++;
+            } else if (nums[i] == 2) {
+                swap(nums, i, e);
+                e--;
+            } else i++;
             
         }
         
