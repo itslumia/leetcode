@@ -12,15 +12,13 @@ public class Solution {
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
         ListNode p = dummy;
-        ListNode f = head;
-        ListNode s = head.next;
         int k = 1;
         while (k<m) {
-            p = f;
-            f = f.next;
-            s = s.next;
+            p = p.next;
             k++;
         }
+        ListNode f = p.next;
+        ListNode s = f.next;
         while (k < n) {
             ListNode t = s.next;
             s.next = p.next;
