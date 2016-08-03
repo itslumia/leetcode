@@ -20,11 +20,10 @@ public class Solution {
         ListNode f = p.next;
         ListNode s = f.next;
         while (k < n) {
-            ListNode t = s.next;
+            f.next = s.next;
             s.next = p.next;
             p.next = s;
-            f.next = t;
-            s = t;
+            s = f.next;
             k++;
         }
         return dummy.next;
