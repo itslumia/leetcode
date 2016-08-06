@@ -1,28 +1,32 @@
 public class Solution {
     public int evalRPN(String[] tokens) {
-        int a,b;
-		Stack<Integer> S = new Stack<Integer>();
+        Stack<Integer> stack = new Stack<>();
 		for (String s : tokens) {
-			if(s.equals("+")) {
-				S.add(S.pop()+S.pop());
+			if(isNumeric(s)) {
+				stack.push(Integer.parseInt(s));
+			} else {
+				if (s.equals("+")) stack.push(stack.pop()+stack.pop());
+				else if (s.equals("-")) stack.push(-stack.pop()+stack.pop());
+				else if (s.equals("*")) stack.push(stack.pop()*stack.pop());
+				else if (s.equals("/")) {
+					int a = stack.pop();
+					stack.push(stack.pop()/a);
+				}
 			}
-			else if(s.equals("/")) {
-				b = S.pop();
-				a = S.pop();
-				S.add(a / b);
-			}
-			else if(s.equals("*")) {
-				S.add(S.pop() * S.pop());
-			}
-			else if(s.equals("-")) {
-				b = S.pop();
-				a = S.pop();
-				S.add(a - b);
-			}
-			else {
-				S.add(Integer.parseInt(s));
-			}
-		}	
-		return S.pop();
+		}
+		return stack.pop();
+    }
+    
+    boolean isNumeric(String str)
+	{  
+	  try  
+	  {  
+	    double d = Double.parseDouble(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
 	}
     }
