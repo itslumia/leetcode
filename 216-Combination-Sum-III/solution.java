@@ -6,7 +6,7 @@ public class Solution {
     }
     
     private void helper(int times, int sum, int start, List<List<Integer>> ans, List<Integer> list) {
-        //if (sum <= 0) return;
+        if (sum < 0) return;
         if (times == 0) {
             if (sum == 0 && !ans.contains(list)) ans.add(new ArrayList<Integer>(list));
         } else {
