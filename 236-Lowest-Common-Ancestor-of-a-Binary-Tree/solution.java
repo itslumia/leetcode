@@ -9,23 +9,9 @@
  */
 public class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if (!cover(root, p) || !cover(root, q)) return null;
-        return helper(root, p, q);
-    }
-    
-    private TreeNode helper(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null) return null;
-        if (root == p || root == q) return root;
-        boolean p_left = cover(root.left, p);
-        boolean q_left = cover(root.left, q);
-        if (p_left != q_left) return root;
-        TreeNode child = p_left ? root.left : root.right;
-        return helper(child, p, q);
-    }
-    
-    private boolean cover(TreeNode root, TreeNode p) {
-        if (root == null) return false;
-        if (root == p) return true;
-        return cover(root.left, p) || cover(root.right, p);
+        if (root == null || root == p || root == q) return root;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        return left == null ? right : right == null ? left : root;
     }
 }
