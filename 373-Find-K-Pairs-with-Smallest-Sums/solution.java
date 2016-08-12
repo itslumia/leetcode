@@ -1,23 +1,29 @@
 public class Solution {
-    public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
-        List<int[]> all = new ArrayList<>();
-        for (int i=0; i<nums1.length; i++) {
-            for (int j=0; j<nums2.length; j++) {
-                int[] tmp = new int[2];
-                tmp[0] = nums1[i];
-                tmp[1] = nums2[j];
-                all.add(tmp);
-            }
+    class Pair {
+        int[] pair;
+        int idx;
+        int sum;
+        Pair(int idx, int n1, int n2) {
+            this.idx = idx;
+            this.pair = new int[]{n1, n2};
+            this.sum = n1 + n2;
         }
-        Collections.sort(all, new Comparator<int[]>() {
-            public int compare(int[] a, int[] b) {
-                return (Integer)((a[0]+a[1])-(b[0]+b[1]));
-            }
-        });
+    }
+    
+    class ComPair implements Comparator<Pair> {
+        public int compare(Pair p1, Pair p2) {
+            return p1.sum-p2.sum;
+        }
+    }
+    public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
         List<int[]> ans = new ArrayList<>();
-        for (int[] arr : all) {
-            ans.add(arr);
-            if (ans.size() == k) break;
+        if (nums1.length == 0 || nums2.length == 0) return ans;
+        PriorityQueue<Pair> q = new PriorityQueue(k, new ComPair());
+        for (int i=0; i<nums1.length && i<k; i++) q.offer(new Pair(0, nums1[i], nums2[0]));
+        for (int i=1; i<=k && !q.isEmpty(); i++) {
+            Pair p = q.poll();
+            ans.add(p.pair);
+            if (p.idx < nums2.length-1) q.offer(new Pair(p.idx+1, p.pair[0], nums2[p.idx+1]));
         }
         return ans;
     }
