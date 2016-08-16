@@ -9,16 +9,20 @@
  */
 public class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
-        List<Integer> ans = new ArrayList<>();
+        LinkedList<Integer> ans = new LinkedList<>();
         if (root == null) return ans;
-        helper(root, ans);
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while (cur != null || !stack.empty()) {
+            if (cur != null) {
+                stack.push(cur);
+                ans.addFirst(cur.val);
+                cur = cur.right;
+            } else {
+                cur = stack.pop();
+                cur = cur.left;
+            }
+        }
         return ans;
-    }
-    
-    private void helper(TreeNode root, List<Integer> ans) {
-        if (root == null) return;
-        helper(root.left, ans);
-        helper(root.right, ans);
-        ans.add(root.val);
     }
 }
