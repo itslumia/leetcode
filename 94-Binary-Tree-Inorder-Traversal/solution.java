@@ -9,15 +9,20 @@
  */
 public class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
         List<Integer> ans = new ArrayList<>();
-        helper(ans, root);
+        if (root == null) return ans;
+        TreeNode cur = root;
+        while (cur != null || !stack.empty()) {
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            cur = stack.pop();
+            ans.add(cur.val);
+            cur = cur.right;
+        }
         return ans;
-    }
-    
-    private void helper(List<Integer> ans, TreeNode root) {
-        if (root == null) return;
-        helper(ans, root.left);
-        ans.add(root.val);
-        helper(ans, root.right);
+        
     }
 }
